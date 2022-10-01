@@ -17,9 +17,30 @@ Board::Board(int n, const set<string>& p) {
         }
         
     }
+
+    //Acabar d'omplir amb lletres leatories
+    for (int x = 0; x < n; ++x)
+        for (int y = 0; y < n; ++y)
+        {
+            if (board[x][y] == '0') board[x][y] = randomLetter();
+        }
     
 }
 
+char Board::randomLetter() {
+    int rnd = rand()%26;
+    return 'A' + rnd;
+}
+
+
+void Board::print(){
+	for (int i = 0; i < board.size(); ++i){
+        for (int j = 0; j < board.size(); ++j)
+            cout << board[i][j] << ' ';
+        cout << endl;
+
+	}
+}
 char Board::getCasella(int x, int y){
     if (x < 0 || x >= board.size() || y < 0 || y >= board.size()) return '0';
 
