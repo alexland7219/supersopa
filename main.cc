@@ -3,23 +3,22 @@
 #include <string>
 #include <set>
 #include "board.hh"
-#include "diccBloomFilter.hh"
-#include "diccDHashing.hh"
-#include "diccSortedVector.hh"
 using namespace std;
 
 void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
     for (int i = 0; i < n; ++i) {
         int rnd = rand()%dicc.size();
-      if (not p.insert(dicc[rnd]).second) --i;
+		cout << dicc[rnd] << ' ';
+        if (not p.insert(dicc[rnd]).second) --i;
     }
     //p amb N randoms
 }
     
 int main() {
+	srand(time(NULL));
     vector<string> dicc;
-    int nParaules = 20;
-    int N = 50; //valor arbitrari
+    int nParaules = 6;
+    int N = 8; //valor arbitrari
 
     string x;
     while (cin >> x) {
@@ -31,5 +30,6 @@ int main() {
     
     Board B = Board(N, P);
 
+	B.print();
   
 }

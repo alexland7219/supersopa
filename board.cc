@@ -34,6 +34,7 @@ char Board::randomLetter() {
 
 
 void Board::print(){
+	cout << endl;
 	for (int i = 0; i < board.size(); ++i){
         for (int j = 0; j < board.size(); ++j)
             cout << board[i][j] << ' ';
