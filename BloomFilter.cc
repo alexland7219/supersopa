@@ -1,4 +1,4 @@
-#include "diccBloomFilter.hh"
+#include "BloomFilter.hh"
 
 Bloom::Bloom(vector<string>& s){
     for (string str : s){

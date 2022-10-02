@@ -1,5 +1,5 @@
-#ifndef DICCBLOOMFILTER_HH
-#define DICCBLOOMFILTER_HH
+#ifndef BLOOMFILTER_HH
+#define BLOOMFILTER_HH
 
 #include <string>
 #include <bitset>
