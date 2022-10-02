@@ -3,7 +3,10 @@
 
 #include <string>
 #include <bitset>
-using std::bitset;
+#include <vector>
+#include <cstring>
+#include <math.h>
+using std::bitset, std::string, std::vector;
 
 class Bloom {
 
@@ -13,17 +16,18 @@ class Bloom {
     static const uint32_t M = 100000;
     bitset<100000> B;
 
-    int Hash1(string s);
-    int Hash2(string s);
-    int Hash3(string s);
-    int Hash4(string s);
-    int Hash5(string s);
-    int Hash6(string s);
+    static int hash1(string s);
+    static int hash2(string s);
+    static int hash3(string s);
+    static int hash4(string s);
+    static int hash5(string s);
+    static int hash6(string s);
 
+    static inline uint32_t murmur32_scramble(uint32_t k);
 
     public:
 
-    Bloom(vector<string>& dict);
+    Bloom(vector<string>& s);
 
     void addWord(string s);
     bool checkWord(string s);
