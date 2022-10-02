@@ -1,13 +1,8 @@
 #include "Trie.hh"
 
 Trie::Trie(char c) {
-    val = c;
     is_word = false;
     children = vector<Trie *>(26, NULL);
-}
-
-char Trie::getValue() {
-    return val;
 }
 
 bool Trie::getIsWord() {

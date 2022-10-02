@@ -9,7 +9,6 @@ class Trie {
 
     private:
  
-    char val;
     bool is_word;
     vector<Trie *> children;
 
@@ -17,7 +16,6 @@ class Trie {
 
     Trie(char c);
 
-    char getValue();
     bool getIsWord();
     void setWord(string s, int i);
 };
