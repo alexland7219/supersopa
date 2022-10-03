@@ -5,8 +5,10 @@ Trie::Trie(char c) {
     children = vector<Trie *>(26, NULL);
 }
 
-bool Trie::getIsWord() {
-    return is_word;
+bool Trie::checkWord(string s, int i) {
+    if (i == s.size()) return is_word;
+    if (children[s[i] - 'A'] == NULL) return false;
+    return children[s[i] - 'A']->checkWord(s, i + 1);
 }
 
 void Trie::setWord(string s, int i) {

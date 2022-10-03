@@ -6,5 +6,5 @@ DiccTrie::DiccTrie(const vector<string>& dict) {
 }
 
 bool DiccTrie::checkWord(string s) {
-    return true;
+    return root->checkWord(s, 0);
 }

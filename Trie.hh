@@ -15,8 +15,7 @@ class Trie {
     public:
 
     Trie(char c);
-
-    bool getIsWord();
+    bool checkWord(string s, int i);
     void setWord(string s, int i);
 };
 
