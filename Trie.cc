@@ -17,8 +17,6 @@ void Trie::setWord(string s, int i) {
         return;
     }
 
-    if (children[s[i] - 'A'] == NULL) {
-        children[s[i] - 'A'] = new Trie(s[i]);
-    }
+    if (children[s[i] - 'A'] == NULL) children[s[i] - 'A'] = new Trie(s[i]);
     children[s[i] - 'A']->setWord(s, i + 1);
 }
