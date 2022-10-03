@@ -3,6 +3,7 @@
 #include <string>
 #include <set>
 #include "board.hh"
+#include "diccTrie.hh"
 using namespace std;
 
 void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
@@ -29,7 +30,6 @@ int main() {
     selectNRandom(P, dicc, nParaules);
     
     Board B = Board(N, P);
-
 	B.print();
   
 }
