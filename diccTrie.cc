@@ -5,6 +5,12 @@ DiccTrie::DiccTrie(const vector<string>& dict) {
     for (int i = 0; i < dict.size(); ++i) root->setWord(dict[i], 0);
 }
 
-bool DiccTrie::checkWord(string s) {
-    return root->checkWord(s, 0);
+void DiccTrie::findWords(Board& sopa) {
+    for (int i = 0; i < sopa.getSize(); ++i) {
+        for (int j = 0; j < sopa.getSize(); ++j) {
+            set<pair<int, int>> visited;
+            string s;
+            root->findWords(sopa, i, j, visited, s);
+        }
+    }
 }

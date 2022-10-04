@@ -1,8 +1,10 @@
 #ifndef TRIE_HH
 #define TRIE_HH
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include "board.hh"
 using namespace std;
 
 class Trie {
@@ -15,8 +17,8 @@ class Trie {
     public:
 
     Trie(char c);
-    bool checkWord(string s, int i);
     void setWord(string s, int i);
+    void findWords(Board& sopa, int i, int j, set<pair<int, int>>& visited, string s);
 };
 
 #endif

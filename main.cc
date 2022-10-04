@@ -31,5 +31,9 @@ int main() {
     
     Board B = Board(N, P);
 	B.print();
+
+    //Trie
+    DiccTrie trie(dicc);
+    trie.findWords(B);
   
 }

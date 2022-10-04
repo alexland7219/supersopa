@@ -33,7 +33,7 @@ char Board::randomLetter() {
 }
 
 
-void Board::print(){
+const void Board::print(){
 	cout << endl;
 	for (int i = 0; i < board.size(); ++i){
         for (int j = 0; j < board.size(); ++j)
@@ -42,7 +42,7 @@ void Board::print(){
 
 	}
 }
-char Board::getCasella(int x, int y){
+const char Board::getCasella(int x, int y){
     if (x < 0 || x >= board.size() || y < 0 || y >= board.size()) return '0';
 
     return board[x][y];
@@ -100,4 +100,8 @@ bool Board::place_string(string s, int i, int posx, int posy) {
     return false;
 
     
+}
+
+const int Board::getSize() {
+    return board.size();
 }

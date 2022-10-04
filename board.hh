@@ -20,9 +20,9 @@ class Board {
 
     Board(int n, const set<string>& p);
 
-    char getCasella(int x, int y);
-
-	void print();
+    const char getCasella(int x, int y);
+    const int getSize();
+	const void print();
 };
 
 #endif

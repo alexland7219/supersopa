@@ -13,7 +13,7 @@ class DiccTrie {
 
     DiccTrie(const vector<string>& dict);
 
-    bool checkWord(string s);
+    void findWords(Board& sopa);
 };
 
 #endif
