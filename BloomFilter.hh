@@ -6,22 +6,26 @@
 #include <vector>
 #include <cstring>
 #include <math.h>
-using std::bitset, std::string, std::vector;
+#include <set>
+#include "board.hh"
+using namespace std;
 
 class Bloom {
 
     private:
 
-    // Bloom array. We set m = 100000 and k = 6
-    static const uint32_t M = 100000;
-    bitset<100000> B;
+    // Bloom array. We set m = 1000000 and k = 6
+    static const uint32_t MB = 1000000;
+    static const uint32_t MP = 8000000;
+    bitset<1000000> B; // words
+    bitset<7000000> P; // prefixes of words
 
-    static int hash1(string s);
-    static int hash2(string s);
-    static int hash3(string s);
-    static int hash4(string s);
-    static int hash5(string s);
-    static int hash6(string s);
+    static int hash1(string s, bool firstModulus);
+    static int hash2(string s, bool firstModulus);
+    static int hash3(string s, bool firstModulus);
+    static int hash4(string s, bool firstModulus);
+    static int hash5(string s, bool firstModulus);
+    static int hash6(string s, bool firstModulus);
 
     static inline uint32_t murmur32_scramble(uint32_t k);
 
@@ -31,6 +35,11 @@ class Bloom {
 
     void addWord(string s);
     bool checkWord(string s);
+    void addPrefix(string s);
+    bool checkPrefix(string s);
+
+    void findWords(Board& board);
+    void localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats);
 };
 
 #endif

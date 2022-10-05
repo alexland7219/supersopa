@@ -1,15 +1,27 @@
 #include "BloomFilter.hh"
-using std::string, std::vector;
+using namespace std;
 
 Bloom::Bloom(vector<string>& s){
     for (string str : s){
+        string pre = "";
+
+        for (int i = 0; i < str.size() - 1; ++i){
+            pre.push_back(str[i]);
+            addPrefix(pre);
+        }
+
         addWord(str);
     }
 };
 
-int Bloom::hash1(string s){
+int Bloom::hash1(string s, bool firstModulus){
     // Polinomic multiplication with prime coefficient
     // S'observa bona distribució uniforme quan p = 53
+    uint32_t M;
+    
+    if (firstModulus) M = MB;
+    else M = MP;
+    
     int p = 53;
     uint32_t i = 1;
 
@@ -21,8 +33,13 @@ int Bloom::hash1(string s){
     return i;
 };
 
-int Bloom::hash2(string s){
+int Bloom::hash2(string s, bool firstModulus){
     // Multiplication with prime numbers
+    uint32_t M;
+
+    if (firstModulus) M = MB;
+    else M = MP;
+
     uint32_t i = 7;
     for (int j = 0; j < s.size(); ++j){
         i = (i * 127) + s[j];
@@ -32,8 +49,13 @@ int Bloom::hash2(string s){
     return i;
 }
 
-int Bloom::hash3(string s){
+int Bloom::hash3(string s, bool firstModulus){
     // djb2 by Dan Bernstein http://www.cse.yorku.ca/~oz/hash.html
+    uint32_t M;
+
+    if (firstModulus) M = MB;
+    else M = MP;
+    
     unsigned long hash = 5381;
     int c;
     char * p = &s[0];
@@ -44,8 +66,13 @@ int Bloom::hash3(string s){
     return (hash % M);
 }
 
-int Bloom::hash4(string s){
+int Bloom::hash4(string s, bool firstModulus){
     // PJW hash function https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html
+    uint32_t M;
+
+    if (firstModulus) M = MB;
+    else M = MP;
+    
     char * p = &s[0];
     unsigned long h = 0, g;
 
@@ -63,8 +90,13 @@ int Bloom::hash4(string s){
     return (h % M);
 }
 
-int Bloom::hash5(string s){
+int Bloom::hash5(string s, bool firstModulus){
     // Jenkins' one-at-a-time hash function http://www.burtleburtle.net/bob/hash/doobs.html
+    uint32_t M;
+
+    if (firstModulus) M = MB;
+    else M = MP;
+    
     uint32_t hash = 0;
 
     for (int i = 0; i < s.size(); ++i){
@@ -87,8 +119,12 @@ inline uint32_t Bloom::murmur32_scramble(uint32_t k){
     return k;
 }
 
-int Bloom::hash6(string s){
+int Bloom::hash6(string s, bool firstModulus){
     // Murmur3 Cryptographic hashing function https://en.wikipedia.org/wiki/MurmurHash
+    uint32_t M;
+
+    if (firstModulus) M = MB;
+    else M = MP;
 
     uint32_t seed = 0;
     char* key = &s[0]; 
@@ -128,16 +164,133 @@ int Bloom::hash6(string s){
 
 void Bloom::addWord(string s){
     // For every hash functionw we evaluate and set the corresponding bit to 1
-    B[hash1(s)] = 1;
-    B[hash2(s)] = 1;
-    B[hash3(s)] = 1;
-    B[hash4(s)] = 1;
-    B[hash5(s)] = 1;
-    B[hash6(s)] = 1;
+    B[hash1(s, true)] = 1;
+    B[hash2(s, true)] = 1;
+    B[hash3(s, true)] = 1;
+    B[hash4(s, true)] = 1;
+    B[hash5(s, true)] = 1;
+    B[hash6(s, true)] = 1;
+}
+
+void Bloom::addPrefix(string s){
+    P[hash1(s, false)] = 1;
+    P[hash2(s, false)] = 1;
+    P[hash3(s, false)] = 1;
+    P[hash4(s, false)] = 1;
+    P[hash5(s, false)] = 1;
+    P[hash6(s, false)] = 1;
+
 }
 
 bool Bloom::checkWord(string s){
     // If it returns true IT COULD BE A FALSE POSITIVE
     // If it returns false then IT IS NOT IN THE DICTIONARY
-    return (B[hash1(s)] && B[hash2(s)] && B[hash3(s)] && B[hash4(s)] && B[hash5(s)] && B[hash6(s)]);
+    return (B[hash1(s, true)] && B[hash2(s, true)] && B[hash3(s, true)] && B[hash4(s, true)] && B[hash5(s, true)] && B[hash6(s, true)]);
+}
+
+bool Bloom::checkPrefix(string s){
+    return (P[hash1(s, false)] && P[hash2(s, false)] && P[hash3(s, false)] && P[hash4(s, false)] && P[hash5(s, false)] && P[hash6(s, false)]);
+}
+
+void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats){
+    // Supposing on (i, j) there's a valid prefix and has been marked as visited
+    if (checkWord(s)) cout << "Found " << s << endl;
+
+    if (i > 0 && j > 0){
+        s.push_back(board.getCasella(i-1, j-1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j-1)).second){
+            localSearch(board, i-1, j-1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i-1, j-1));
+    }
+
+    if (i > 0 && j < board.getSize() - 1){
+        s.push_back(board.getCasella(i-1, j+1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j+1)).second){
+            localSearch(board, i-1, j+1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i-1, j+1));
+    }
+
+    if (i < board.getSize() - 1 && j > 0){
+        s.push_back(board.getCasella(i+1, j-1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j-1)).second){
+            localSearch(board, i+1, j-1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i+1, j-1));
+    }
+
+    if (i < board.getSize() - 1 && j < board.getSize() - 1){
+        s.push_back(board.getCasella(i+1, j+1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j+1)).second){
+            localSearch(board, i+1, j+1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i+1, j+1));
+    }
+
+    if (i > 0){
+        s.push_back(board.getCasella(i-1, j));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j)).second){
+            localSearch(board, i-1, j, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i-1, j));
+    }
+
+    if (i < board.getSize() - 1){
+        s.push_back(board.getCasella(i+1, j));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j)).second){
+            localSearch(board, i+1, j, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i+1, j));
+    }
+
+    if (j > 0){
+        s.push_back(board.getCasella(i, j-1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i, j-1)).second){
+            localSearch(board, i, j-1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i, j-1));
+    }
+
+    if (j < board.getSize() - 1){
+        s.push_back(board.getCasella(i, j+1));
+        
+        if (checkPrefix(s) && visitats.insert(make_pair(i, j+1)).second){
+            localSearch(board, i, j+1, s, visitats);
+        }
+
+        s.pop_back(); visitats.erase(make_pair(i, j+1));
+    }
+
+}
+
+void Bloom::findWords(Board& board){
+    for (int i = 0; i < board.getSize(); ++i){
+        for (int j = 0; j < board.getSize(); ++j){
+
+            string pre = "";
+            pre.push_back(board.getCasella(i, j));
+            
+            if (checkPrefix(pre)){
+                set<pair<int, int>> visitats;
+                visitats.insert(make_pair(i, j));
+
+                localSearch(board, i, j, pre, visitats);
+            }
+        }
+    }
 }
