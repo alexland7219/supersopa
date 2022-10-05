@@ -51,7 +51,7 @@ const char Board::getCasella(int x, int y){
 bool Board::place_string(string s, int i, int posx, int posy) {
     if (s.size() == i) return true;
     if (posx < 0 || posx >= board.size() || posy < 0 || posy >= board.size()) return false;
-    if (board[posx][posy] != '0' and board[posx][posy] != s[i]) return false;
+    if (board[posx][posy] != '0') return false;
 
 
     board[posx][posy] = s[i];
