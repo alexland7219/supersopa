@@ -13,7 +13,7 @@ class DiccTrie {
 
     DiccTrie(const vector<string>& dict);
 
-    void findWords(Board& sopa);
+    void findWords(Board& sopa, set<string>& found);
 };
 
 #endif

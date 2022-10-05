@@ -45,7 +45,9 @@ int main() {
 
     //Trie
     DiccTrie trie(dicc);
-    trie.findWords(B);
+    trie.findWords(B, solution);
+    printSet(solution);
+    solution.clear();
     cout << "-------" << endl;
 
     solution.clear();
