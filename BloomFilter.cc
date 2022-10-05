@@ -30,6 +30,9 @@ int Bloom::hash1(string s, bool firstModulus){
         i %= M;
     }
 
+    //if (firstModulus) cout << "hash 1 with string " << s << " returns " << i << endl;
+    //if (!firstModulus) cout << "Hash 1 prefix " << s << " returns " << i << endl;
+
     return i;
 };
 
@@ -199,7 +202,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i > 0 && j > 0){
         s.push_back(board.getCasella(i-1, j-1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j-1)).second){
             localSearch(board, i-1, j-1, s, visitats);
         }
 
@@ -209,7 +212,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i > 0 && j < board.getSize() - 1){
         s.push_back(board.getCasella(i-1, j+1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j+1)).second){
             localSearch(board, i-1, j+1, s, visitats);
         }
 
@@ -219,7 +222,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1 && j > 0){
         s.push_back(board.getCasella(i+1, j-1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j-1)).second){
             localSearch(board, i+1, j-1, s, visitats);
         }
 
@@ -229,7 +232,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1 && j < board.getSize() - 1){
         s.push_back(board.getCasella(i+1, j+1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j+1)).second){
             localSearch(board, i+1, j+1, s, visitats);
         }
 
@@ -239,7 +242,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i > 0){
         s.push_back(board.getCasella(i-1, j));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i-1, j)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j)).second){
             localSearch(board, i-1, j, s, visitats);
         }
 
@@ -249,7 +252,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1){
         s.push_back(board.getCasella(i+1, j));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i+1, j)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j)).second){
             localSearch(board, i+1, j, s, visitats);
         }
 
@@ -259,7 +262,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (j > 0){
         s.push_back(board.getCasella(i, j-1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j-1)).second){
             localSearch(board, i, j-1, s, visitats);
         }
 
@@ -269,7 +272,7 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (j < board.getSize() - 1){
         s.push_back(board.getCasella(i, j+1));
         
-        if (checkPrefix(s) && visitats.insert(make_pair(i, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j+1)).second){
             localSearch(board, i, j+1, s, visitats);
         }
 

@@ -15,10 +15,10 @@ class Bloom {
     private:
 
     // Bloom array. We set m = 1000000 and k = 6
-    static const uint32_t MB = 1000000;
-    static const uint32_t MP = 8000000;
-    bitset<1000000> B; // words
-    bitset<7000000> P; // prefixes of words
+    static const uint32_t MB = 10000;
+    static const uint32_t MP = 80000;
+    bitset<MB> B; // words
+    bitset<MP> P; // prefixes of words
 
     static int hash1(string s, bool firstModulus);
     static int hash2(string s, bool firstModulus);
