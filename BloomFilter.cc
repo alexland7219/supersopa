@@ -204,9 +204,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j-1)).second){
             localSearch(board, i-1, j-1, s, visitats);
+            visitats.erase(make_pair(i-1, j-1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i-1, j-1));
+        s.pop_back(); 
     }
 
     if (i > 0 && j < board.getSize() - 1){
@@ -214,9 +215,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j+1)).second){
             localSearch(board, i-1, j+1, s, visitats);
+             visitats.erase(make_pair(i-1, j+1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i-1, j+1));
+        s.pop_back();
     }
 
     if (i < board.getSize() - 1 && j > 0){
@@ -224,9 +226,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j-1)).second){
             localSearch(board, i+1, j-1, s, visitats);
+            visitats.erase(make_pair(i+1, j-1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i+1, j-1));
+        s.pop_back(); 
     }
 
     if (i < board.getSize() - 1 && j < board.getSize() - 1){
@@ -234,9 +237,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j+1)).second){
             localSearch(board, i+1, j+1, s, visitats);
+            visitats.erase(make_pair(i+1, j+1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i+1, j+1));
+        s.pop_back(); 
     }
 
     if (i > 0){
@@ -244,9 +248,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j)).second){
             localSearch(board, i-1, j, s, visitats);
+            visitats.erase(make_pair(i-1, j));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i-1, j));
+        s.pop_back(); 
     }
 
     if (i < board.getSize() - 1){
@@ -254,9 +259,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j)).second){
             localSearch(board, i+1, j, s, visitats);
+            visitats.erase(make_pair(i+1, j));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i+1, j));
+        s.pop_back(); 
     }
 
     if (j > 0){
@@ -264,9 +270,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j-1)).second){
             localSearch(board, i, j-1, s, visitats);
+            visitats.erase(make_pair(i, j-1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i, j-1));
+        s.pop_back(); 
     }
 
     if (j < board.getSize() - 1){
@@ -274,9 +281,10 @@ void Bloom::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
         
         if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j+1)).second){
             localSearch(board, i, j+1, s, visitats);
+            visitats.erase(make_pair(i, j+1));
         }
 
-        s.pop_back(); visitats.erase(make_pair(i, j+1));
+        s.pop_back(); 
     }
 
 }
