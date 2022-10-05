@@ -1,8 +1,11 @@
 #include "BloomFilter.hh"
 using namespace std;
 
-Bloom::Bloom(vector<string>& s){
-    // Initializing B and P
+Bloom::Bloom(vector<string>& s, unsigned int nPrefixes){
+    // Initializing B and P, MB and MP
+    MB = (uint32_t) ceil((s.size() * log(0.0001)) / log(1 / pow(2, log(2))));
+    MP = (uint32_t) ceil((nPrefixes * log(0.0001)) / log(1 / pow(2, log(2))));
+
     B.resize(MB); fill(B.begin(), B.end()-1, false);
     P.resize(MP); fill(P.begin(), P.end()-1, false);
 

@@ -21,10 +21,13 @@ int main() {
     vector<string> dicc;
     int nParaules = 6;
     int N = 8; //valor arbitrari
+    
+    unsigned int nPrefixes = 0;
 
     string x;
     while (cin >> x) {
         dicc.push_back(x);
+        nPrefixes += x.size() - 1;
     }
 
     set<string> P;
@@ -37,7 +40,7 @@ int main() {
     DiccTrie trie(dicc);
     trie.findWords(B);
     cout << "-------" << endl;
-    Bloom bloom(dicc);
+    Bloom bloom(dicc, nPrefixes);
     bloom.findWords(B);
   
 }
