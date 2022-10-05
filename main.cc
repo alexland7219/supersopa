@@ -15,10 +15,17 @@ void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
     }
     //p amb N randoms
 }
-    
+
+void printSet(set<string>& S){
+    for (set<string>::iterator it = S.begin(); it != S.end(); it++){
+        cout << "Found " << *it << endl;
+    }
+}
+
 int main() {
 	srand(time(NULL));
     vector<string> dicc;
+    set<string> solution;
     int nParaules = 6;
     int N = 8; //valor arbitrari
     
@@ -40,7 +47,9 @@ int main() {
     DiccTrie trie(dicc);
     trie.findWords(B);
     cout << "-------" << endl;
+
+    solution.clear();
     Bloom bloom(dicc, nPrefixes);
-    bloom.findWords(B);
-  
+    bloom.findWords(B, solution);
+    printSet(solution);
 }

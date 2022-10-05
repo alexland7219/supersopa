@@ -36,8 +36,8 @@ class Bloom {
     void addPrefix(string s);
     bool checkPrefix(string s);
 
-    void findWords(Board& board);
-    void localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats);
+    void findWords(Board& board, set<string>& foundWords);
+    void localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats, set<string>& foundWords);
 };
 
 #endif
