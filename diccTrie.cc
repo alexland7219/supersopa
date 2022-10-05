@@ -8,7 +8,7 @@ DiccTrie::DiccTrie(const vector<string>& dict) {
 void DiccTrie::findWords(Board& sopa) {
     for (int i = 0; i < sopa.getSize(); ++i) {
         for (int j = 0; j < sopa.getSize(); ++j) {
-            set<pair<int, int>> visited;
+            set<pair<pair<int, int>, string>> visited;
             string s;
             root->findWords(sopa, i, j, visited, s);
         }

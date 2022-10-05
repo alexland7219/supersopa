@@ -18,7 +18,7 @@ class Trie {
 
     Trie(char c);
     void setWord(string s, int i);
-    void findWords(Board& sopa, int i, int j, set<pair<int, int>>& visited, string s);
+    void findWords(Board& sopa, int i, int j, set<pair<pair<int, int>, string>>& visited, string s);
 };
 
 #endif
