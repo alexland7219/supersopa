@@ -10,8 +10,8 @@ using namespace std;
 void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
     for (int i = 0; i < n; ++i) {
         int rnd = rand()%dicc.size();
-		cout << dicc[rnd] << ' ';
         if (not p.insert(dicc[rnd]).second) --i;
+        else cout << dicc[rnd] << ' ';
     }
     //p amb N randoms
 }
@@ -36,7 +36,7 @@ int main() {
     //Trie
     DiccTrie trie(dicc);
     trie.findWords(B);
-    cout << endl;
+    cout << "-------" << endl;
     BloomFilter bloom(dicc);
     dicc.findWords(B);
   

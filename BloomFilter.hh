@@ -2,7 +2,6 @@
 #define BLOOMFILTER_HH
 
 #include <string>
-#include <bitset>
 #include <vector>
 #include <cstring>
 #include <math.h>
@@ -15,10 +14,10 @@ class Bloom {
     private:
 
     // Bloom array. We set m = 1000000 and k = 6
-    static const uint32_t MB = 10000;
-    static const uint32_t MP = 80000;
-    bitset<MB> B; // words
-    bitset<MP> P; // prefixes of words
+    static const uint32_t MB = 100000;
+    static const uint32_t MP = 800000;
+    vector<bool> B; // words
+    vector<bool> P; // prefixes of words
 
     static int hash1(string s, bool firstModulus);
     static int hash2(string s, bool firstModulus);

@@ -2,6 +2,10 @@
 using namespace std;
 
 Bloom::Bloom(vector<string>& s){
+    // Initializing B and P
+    B.resize(MB); fill(B.begin(), B.end()-1, false);
+    P.resize(MP); fill(P.begin(), P.end()-1, false);
+
     for (string str : s){
         string pre = "";
 
@@ -167,21 +171,21 @@ int Bloom::hash6(string s, bool firstModulus){
 
 void Bloom::addWord(string s){
     // For every hash functionw we evaluate and set the corresponding bit to 1
-    B[hash1(s, true)] = 1;
-    B[hash2(s, true)] = 1;
-    B[hash3(s, true)] = 1;
-    B[hash4(s, true)] = 1;
-    B[hash5(s, true)] = 1;
-    B[hash6(s, true)] = 1;
+    B[hash1(s, true)] = true;
+    B[hash2(s, true)] = true;
+    B[hash3(s, true)] = true;
+    B[hash4(s, true)] = true;
+    B[hash5(s, true)] = true;
+    B[hash6(s, true)] = true;
 }
 
 void Bloom::addPrefix(string s){
-    P[hash1(s, false)] = 1;
-    P[hash2(s, false)] = 1;
-    P[hash3(s, false)] = 1;
-    P[hash4(s, false)] = 1;
-    P[hash5(s, false)] = 1;
-    P[hash6(s, false)] = 1;
+    P[hash1(s, false)] = true;
+    P[hash2(s, false)] = true;
+    P[hash3(s, false)] = true;
+    P[hash4(s, false)] = true;
+    P[hash5(s, false)] = true;
+    P[hash6(s, false)] = true;
 
 }
 
