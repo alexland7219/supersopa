@@ -3,6 +3,7 @@
 #include <string>
 #include <set>
 #include "board.hh"
+#include "BloomFilter.hh"
 #include "diccTrie.hh"
 using namespace std;
 
@@ -35,5 +36,8 @@ int main() {
     //Trie
     DiccTrie trie(dicc);
     trie.findWords(B);
+    cout << endl;
+    BloomFilter bloom(dicc);
+    dicc.findWords(B);
   
 }

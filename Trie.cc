@@ -16,11 +16,9 @@ void Trie::setWord(string s, int i) {
 }
 
 void Trie::findWords(Board& sopa, int i, int j, set<pair<int, int>> visited, string s) {
-    int n = sopa.getSize();
-    if (i < 0 or j < 0 or i >= n or j >= n or visited.find(make_pair(i, j)) != visited.end() or children[sopa.getCasella(i, j) - 'A'] == NULL) return;
+    if (i < 0 or j < 0 or i >= sopa.getSize() or j >= sopa.getSize() or visited.find(make_pair(i, j)) != visited.end() or children[sopa.getCasella(i, j) - 'A'] == NULL) return;
 
     s.push_back(sopa.getCasella(i, j));
-
     if (children[sopa.getCasella(i, j) - 'A']->is_word) cout << "Found " << s << endl;
     visited.insert(make_pair(i, j));
 
