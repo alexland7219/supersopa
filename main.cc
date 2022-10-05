@@ -37,7 +37,7 @@ int main() {
     DiccTrie trie(dicc);
     trie.findWords(B);
     cout << "-------" << endl;
-    BloomFilter bloom(dicc);
-    dicc.findWords(B);
+    Bloom bloom(dicc);
+    bloom.findWords(B);
   
 }
