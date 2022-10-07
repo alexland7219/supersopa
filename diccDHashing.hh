@@ -11,7 +11,7 @@ class DHash {
 
     private:
     int capacity;
-    list<string> *table
+    vector<string> table
 
 
     static int hash1(string s);
@@ -21,10 +21,10 @@ class DHash {
 
     public:
 
-    DHash(int tamany);
+    DHash(int tamany, vector<string> dicc);
 
     void afegeix(string paraula);
-    bool comprova(string paraula);
+    void comprova(string paraula);
 };
 
 #endif
