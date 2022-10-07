@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <chrono>
 #include "board.hh"
 #include "BloomFilter.hh"
 #include "diccTrie.hh"
@@ -58,18 +59,34 @@ int main() {
     trieOut.open("trie.out", fstream::out | fstream::trunc);
     bloomOut.open("bloom.out", fstream::out | fstream::trunc);
 
+
     if (trieOut.fail() || bloomOut.fail()){
         cout << "There's been an error opening an output file.\n" << endl;
         return -1;
     }
 
+    // Per a mesurar el temps de cada algorisme
+    chrono::steady_clock::time_point startTime = chrono::steady_clock::now();
+
     DiccTrie trie(dicc);
     trie.findWords(B, solution);
+
+    chrono::steady_clock::time_point finishTime = chrono::steady_clock::now();
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
+    trieOut << "Trie took " << time_span.count()*1000 << " milliseconds\n" << endl;
+
     printSet(solution, trieOut);
     solution.clear();
 
-    solution.clear();
+    startTime = chrono::steady_clock::now();
+
     Bloom bloom(dicc, nPrefixes);
     bloom.findWords(B, solution);
+    
+    finishTime = chrono::steady_clock::now();
+    time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
+    bloomOut << "Bloom Filter took " << time_span.count()*1000 << " milliseconds\n" << endl;
+
     printSet(solution, bloomOut);
+    solution.clear();
 }
