@@ -23,3 +23,4 @@ clean:
 	rm -f *.x
 	rm -f *.gch
 	rm -f *.out
+	rm -f h{1..6}
