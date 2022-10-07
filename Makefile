@@ -1,4 +1,4 @@
-all: board.o main.o BloomFilter.o Trie.o diccTrie.o program.exe
+all: board.o main.o BloomFilter.o Trie.o diccTrie.o program.x
 
 board.o: board.cc board.hh
 	g++ -c board.cc board.hh
@@ -15,10 +15,11 @@ Trie.o: Trie.cc Trie.hh
 diccTrie.o: diccTrie.cc diccTrie.hh
 	g++ -c diccTrie.cc diccTrie.hh
 
-program.exe: board.o main.o BloomFilter.o Trie.o diccTrie.o
-	g++ -o program.exe board.o main.o BloomFilter.o Trie.o diccTrie.o
+program.x: board.o main.o BloomFilter.o Trie.o diccTrie.o
+	g++ -o program.x board.o main.o BloomFilter.o Trie.o diccTrie.o
 
 clean:
 	rm -f *.o
-	rm -f *.exe
+	rm -f *.x
 	rm -f *.gch
+	rm -f *.out
