@@ -9,6 +9,12 @@ Bloom::Bloom(vector<string>& s, unsigned int nPrefixes){
     B.resize(MB); fill(B.begin(), B.end()-1, false);
     P.resize(MP); fill(P.begin(), P.end()-1, false);
 
+    /*
+    h1.open("h1", fstream::out | fstream::trunc); h2.open("h2", fstream::out | fstream::trunc); 
+    h3.open("h3", fstream::out | fstream::trunc); h4.open("h4", fstream::out | fstream::trunc); 
+    h5.open("h5", fstream::out | fstream::trunc); h6.open("h6", fstream::out | fstream::trunc);
+    */
+
     for (string str : s){
         string pre = "";
 
@@ -22,13 +28,11 @@ Bloom::Bloom(vector<string>& s, unsigned int nPrefixes){
 };
 
 int Bloom::hash1(string s, bool firstModulus){
-    // Polinomic multiplication with prime coefficient
-    // S'observa bona distribució uniforme quan p = 53
     uint32_t M;
-    
+   
     if (firstModulus) M = MB;
     else M = MP;
-    
+
     int p = 53;
     uint32_t i = 1;
 
@@ -36,9 +40,6 @@ int Bloom::hash1(string s, bool firstModulus){
         i += s[j] * pow(p, j);
         i %= M;
     }
-
-    //if (firstModulus) cout << "hash 1 with string " << s << " returns " << i << endl;
-    //if (!firstModulus) cout << "Hash 1 prefix " << s << " returns " << i << endl;
 
     return i;
 };
@@ -174,6 +175,16 @@ int Bloom::hash6(string s, bool firstModulus){
 
 void Bloom::addWord(string s){
     // For every hash functionw we evaluate and set the corresponding bit to 1
+
+    /*
+    h1 << hash1(s, true) << endl;
+    h2 << hash2(s, true) << endl;
+    h3 << hash3(s, true) << endl;
+    h4 << hash4(s, true) << endl;
+    h5 << hash5(s, true) << endl;
+    h6 << hash6(s, true) << endl;
+    */
+
     B[hash1(s, true)] = true;
     B[hash2(s, true)] = true;
     B[hash3(s, true)] = true;
