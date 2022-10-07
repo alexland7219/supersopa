@@ -28,20 +28,21 @@ Bloom::Bloom(vector<string>& s, unsigned int nPrefixes){
 };
 
 int Bloom::hash1(string s, bool firstModulus){
+    // Fowler-Noll-Vo hash function FNV-1
     uint32_t M;
    
     if (firstModulus) M = MB;
     else M = MP;
 
-    int p = 53;
-    uint32_t i = 1;
+    uint64_t hash = 0xcbf29ce484222325;
 
-    for (int j = 0; j < s.size(); ++j){
-        i += s[j] * pow(p, j);
-        i %= M;
+    for (int i = 0; i < s.size(); ++i){
+        hash *= 0x100000001b3;
+        hash ^= (uint8_t) s[i];
     }
 
-    return i;
+    return (hash % M);
+
 };
 
 int Bloom::hash2(string s, bool firstModulus){
