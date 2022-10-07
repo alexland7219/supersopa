@@ -19,7 +19,7 @@ void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
 
 void printSet(set<string>& S, fstream& out){
     for (set<string>::iterator it = S.begin(); it != S.end(); it++){
-        out << "Found " << *it << endl;
+        out << *it << endl;
     }
 }
 
