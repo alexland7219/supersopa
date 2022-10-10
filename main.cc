@@ -7,6 +7,7 @@
 #include "board.hh"
 #include "BloomFilter.hh"
 #include "diccTrie.hh"
+#include "diccDHashing.hh"
 using namespace std;
 
 void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
@@ -55,12 +56,12 @@ int main() {
 
     // Es guardaran les paraules trobades, en ordre alfabètic, als fitxers
     // "trie.out", "bloom.out", ..., que es crearan de nou.
-    fstream trieOut, bloomOut;
+    fstream trieOut, bloomOut, dhashOut;
     trieOut.open("trie.out", fstream::out | fstream::trunc);
     bloomOut.open("bloom.out", fstream::out | fstream::trunc);
+    dhashOut.open("dhash.out", fstream::out | fstream::trunc);
 
-
-    if (trieOut.fail() || bloomOut.fail()){
+    if (trieOut.fail() || bloomOut.fail() || dhashOut.fail()){
         cout << "There's been an error opening an output file.\n" << endl;
         return -1;
     }
@@ -88,5 +89,17 @@ int main() {
     bloomOut << "Bloom Filter took " << time_span.count()*1000 << " milliseconds\n" << endl;
 
     printSet(solution, bloomOut);
+    solution.clear();
+
+    startTime = chrono::steady_clock::now();
+
+    DHash dhash(nPrefixes, dicc);
+    dhash.findWords(B, solution);
+
+    finishTime = chrono::steady_clock::now();
+    time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
+    dhashOut << "Double Hashing took " << time_span.count()*1000 << " milliseconds\n" << endl;
+
+    printSet(solution, dhashOut);
     solution.clear();
 }

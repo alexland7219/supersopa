@@ -2,29 +2,38 @@
 #define DICCDHASHING_HH
 
 #include <string>
-#include <list>
-
-
-
+#include <vector>
+#include <set>
+#include <cmath>
+#include <iostream>
+#include "board.hh"
+using namespace std;
 
 class DHash {
 
     private:
-    int capacity;
-    vector<string> table
+    vector<string> table;
+    vector<string> tablePrefixes;
 
-
-    static int hash1(string s);
+    int hash1(string s);
+    int nextprime(unsigned int k);
+    bool isPrime(unsigned int p, unsigned int tests);
 
     //solver de les colisions de hash1
-    static int hash2(string s);
+    int hash2(string s);
 
     public:
 
-    DHash(int tamany, vector<string> dicc);
+    DHash(unsigned int n_prefixes, vector<string>& dicc);
 
-    void afegeix(string paraula);
-    void comprova(string paraula);
+    void addWord(string& paraula);
+    void addPrefix(string& pre);
+    bool checkWord(string& word);
+    bool checkPrefix(string& word);
+
+    void findWords(Board& board, set<string>& foundWords);
+    void localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats, set<string>& foundWords);
+
 };
 
 #endif

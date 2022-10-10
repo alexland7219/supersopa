@@ -4,6 +4,8 @@ from matplotlib import pyplot as plt
 # APPEARING IN FUNCTIONS Bloom, addWord AND IN THE CLASS Bloom
 # DOING SO WILL GENERATE FILES h1 TO h6
 
+n_bins = 50
+
 plt.style.use('fivethirtyeight')
 
 hash1 = []
@@ -53,33 +55,33 @@ for line in l6:
 
 figure, axis = plt.subplots(2, 3)
 
-axis[0, 0].hist(hash1, bins=50, edgecolor='black', color='red')
+axis[0, 0].hist(hash1, bins=n_bins, edgecolor='black', color='red')
 axis[0, 0].set_title("HASH 1")
 axis[0, 0].get_xaxis().set_visible(False)
 axis[0, 0].get_yaxis().set_visible(False)
 
-axis[0, 1].hist(hash2, bins=50, edgecolor='black', color='orange')
+axis[0, 1].hist(hash2, bins=n_bins, edgecolor='black', color='orange')
 axis[0, 1].set_title("HASH 2")
 axis[0, 1].get_xaxis().set_visible(False)
 axis[0, 1].get_yaxis().set_visible(False)
 
 
-axis[0, 2].hist(hash3, bins=50, edgecolor='black', color='yellow')
+axis[0, 2].hist(hash3, bins=n_bins, edgecolor='black', color='yellow')
 axis[0, 2].set_title("HASH 3")
 axis[0, 2].get_xaxis().set_visible(False)
 axis[0, 2].get_yaxis().set_visible(False)
 
-axis[1, 0].hist(hash4, bins=50, edgecolor='black', color='green')
+axis[1, 0].hist(hash4, bins=n_bins, edgecolor='black', color='green')
 axis[1, 0].set_title("HASH 4")
 axis[1, 0].get_xaxis().set_visible(False)
 axis[1, 0].get_yaxis().set_visible(False)
 
-axis[1, 1].hist(hash5, bins=50, edgecolor='black', color='blue')
+axis[1, 1].hist(hash5, bins=n_bins, edgecolor='black', color='blue')
 axis[1, 1].set_title("HASH 5")
 axis[1, 1].get_xaxis().set_visible(False)
 axis[1, 1].get_yaxis().set_visible(False)
 
-axis[1, 2].hist(hash6, bins=50, edgecolor='black', color='purple')
+axis[1, 2].hist(hash6, bins=n_bins, edgecolor='black', color='purple')
 axis[1, 2].set_title("HASH 6")
 axis[1, 2].get_xaxis().set_visible(False)
 axis[1, 2].get_yaxis().set_visible(False)
