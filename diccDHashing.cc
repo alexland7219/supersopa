@@ -30,7 +30,6 @@ int DHash::nextprime(unsigned int k){
     is_prime = isPrime(k, 300);
   }
 
-  cout << k << " is a prime number" << endl;
   return k;
 }
 

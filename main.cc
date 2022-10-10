@@ -81,7 +81,7 @@ int main() {
 
     startTime = chrono::steady_clock::now();
 
-    Bloom bloom(dicc, nPrefixes);
+    Bloom bloom(dicc, nPrefixes, 0.00001); // On la última constant és la probabilitat de falsos positius, en tant per u.
     bloom.findWords(B, solution);
     
     finishTime = chrono::steady_clock::now();
