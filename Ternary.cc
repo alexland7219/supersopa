@@ -28,8 +28,6 @@ void Ternary::setWord(string s, int i) {
 }
 
 void Ternary::findWords(Board& sopa, int i, int j, set<pair<int, int>> visited, string s, set<string>& found) {
-    //cout << s << endl;
-
     if (i < 0 or j < 0 or i >= sopa.getSize() or j >= sopa.getSize() or visited.find(make_pair(i, j)) != visited.end()) return;
     
     if (sopa.getCasella(i, j) > key and right != NULL) right->findWords(sopa, i, j, visited, s, found);
