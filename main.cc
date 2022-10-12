@@ -38,8 +38,8 @@ int main() {
     // El conjunt de paraules trobades
     set<string> solution;
 
-    int nParaules = 8; // Nombre de paraules a amagar
-    int N = 30;        // Mida del tauler NxN
+    int nParaules = 20; // Nombre de paraules a amagar
+    int N = 40;        // Mida del tauler NxN
     
     // Nombre de prefixos totals de tot el diccionari
     unsigned int nPrefixes = 0;
@@ -49,6 +49,8 @@ int main() {
         dicc.push_back(x);
         nPrefixes += x.size() - 1; // La paraula sencera no compta com a prefix
     }
+
+	cout << nPrefixes << endl;
 
     set<string> P;
     selectNRandom(P, dicc, nParaules);
@@ -114,7 +116,7 @@ int main() {
 
     finishTime = chrono::steady_clock::now();
     time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
-    ternaryOut << "ternary took " << time_span.count()*1000 << " milliseconds\n" << endl;
+    ternaryOut << "Ternary took " << time_span.count()*1000 << " milliseconds\n" << endl;
 
     printSet(solution, ternaryOut);
     solution.clear();

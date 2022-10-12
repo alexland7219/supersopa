@@ -17,7 +17,7 @@ class DHash {
 
     int hash1(string s);
     int nextprime(unsigned int k);
-    bool isPrime(unsigned int p, unsigned int tests);
+    bool fermatTest(unsigned int p, unsigned int tests);
 
     //solver de les colisions de hash1
     int hash2(string s);
