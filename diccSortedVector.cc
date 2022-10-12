@@ -1,4 +1,4 @@
-#include "Opt_diccSortedVector.hh"
+#include "diccSortedVector.hh"
 
 SortedVector::SortedVector(vector<string>& dicc) {
     SortedDicc.resize(dicc.size());
@@ -20,17 +20,19 @@ void SortedVector::fillIndex(int i, int j, char c) {
         int k = (i + j) / 2; // cogemos la mediana
         char q = SortedDicc[k][0];
         if (q < c) { // encontramos un char menor al que buscamos
-            if (Index[q] == -1) { // si no lo tenemos indexado lo hacemos
+            if (Index[q - 'A'] == -1) { // si no lo tenemos indexado lo hacemos
                 fillIndex(i, k, q);
             }
             fillIndex(k+1, j, c);
         }
         else {
-            if (c == SortedDicc[k]) Index[c - 'A'] = k;
+            string s;
+            s = c;
+            if (s == SortedDicc[k]) Index[c - 'A'] = k;
             else fillIndex(i, k, c);
         }
     }
-    else Index[c - 'A'] = k; // tenemos la primera posición donde aparece el char
+    else Index[c - 'A'] = i; // tenemos la primera posición donde aparece el char
 }
 
 int SortedVector::checkPrefix(int i, int j, string& s) {
@@ -49,7 +51,7 @@ int SortedVector::checkPrefix(int i, int j, string& s) {
         else return k;
     }
 
-    else if (s[s.size()-1] == SortedDicc[k][s.size()-1]) return k;
+    else if (s[s.size()-1] == SortedDicc[i][s.size()-1]) return i;
 
     else return -1;
 }
