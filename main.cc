@@ -38,8 +38,8 @@ int main() {
     // El conjunt de paraules trobades
     set<string> solution;
 
-    int nParaules = 20; // Nombre de paraules a amagar
-    int N = 40;        // Mida del tauler NxN
+    int nParaules = 8; // Nombre de paraules a amagar
+    int N = 20;        // Mida del tauler NxN
     
     // Nombre de prefixos totals de tot el diccionari
     unsigned int nPrefixes = 0;
@@ -49,8 +49,6 @@ int main() {
         dicc.push_back(x);
         nPrefixes += x.size() - 1; // La paraula sencera no compta com a prefix
     }
-
-	cout << nPrefixes << endl;
 
     set<string> P;
     selectNRandom(P, dicc, nParaules);
