@@ -40,7 +40,7 @@ int SortedVector::checkPrefix(int i, int j, string& s) {
         int k = (i + j) / 2; // cogemos la mediana
 
         if (s < SortedDicc[k]) {
-            if (s[s.size()-1] == SortedDicc[k][s.size()-1]) {
+            if (s.size() <= SortedDicc[k].size() && s[s.size()-1] == SortedDicc[k][s.size()-1]) {
                 return checkPrefix(i, k, s);
             }
             else return checkPrefix(i, k-1, s);
@@ -51,7 +51,7 @@ int SortedVector::checkPrefix(int i, int j, string& s) {
         else return k;
     }
 
-    else if (s[s.size()-1] == SortedDicc[i][s.size()-1]) return i;
+    else if (s.size() <= SortedDicc[i].size() && s[s.size()-1] == SortedDicc[i][s.size()-1]) return i;
 
     else return -1;
 }

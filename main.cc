@@ -46,6 +46,7 @@ int main() {
 
     string x;
     while (cin >> x) {
+        transform(x.begin(), x.end(), x.begin(), ::toupper);
         dicc.push_back(x);
         nPrefixes += x.size() - 1; // La paraula sencera no compta com a prefix
     }
