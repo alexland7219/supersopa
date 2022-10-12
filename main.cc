@@ -38,8 +38,8 @@ int main() {
     // El conjunt de paraules trobades
     set<string> solution;
 
-    int nParaules = 8; // Nombre de paraules a amagar
-    int N = 20;        // Mida del tauler NxN
+    int nParaules = 20; // Nombre de paraules a amagar
+    int N = 30;        // Mida del tauler NxN
     
     // Nombre de prefixos totals de tot el diccionari
     unsigned int nPrefixes = 0;

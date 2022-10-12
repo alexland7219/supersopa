@@ -25,7 +25,7 @@ diccTernary.o: diccTernary.cc diccTernary.hh
 	g++ -c diccTernary.cc diccTernary.hh
 
 diccSortedVector.o: diccSortedVector.cc diccSortedVector.hh
-	g++ -c diccSortedVector.cc diccSortedVector.hh
+	g++ -std=c++20 -c diccSortedVector.cc diccSortedVector.hh
 
 program.x: board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o diccSortedVector.o
 	g++ -o program.x board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o diccSortedVector.o
