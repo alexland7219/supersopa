@@ -1,4 +1,4 @@
-all: board.o main.o BloomFilter.o Trie.o diccTrie.o program.x diccDHashing.o diccTernary.o Ternary.o
+all: board.o main.o BloomFilter.o Trie.o diccTrie.o program.x diccDHashing.o diccTernary.o Ternary.o diccSortedVector.o
 
 board.o: board.cc board.hh
 	g++ -c board.cc board.hh
@@ -24,8 +24,11 @@ Ternary.o: Ternary.cc Ternary.hh
 diccTernary.o: diccTernary.cc diccTernary.hh
 	g++ -c diccTernary.cc diccTernary.hh
 
-program.x: board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o
-	g++ -o program.x board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o
+diccSortedVector.o: diccSortedVector.cc diccSortedVector.hh
+	g++ -c diccSortedVector.cc diccSortedVector.hh
+
+program.x: board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o diccSortedVector.o
+	g++ -o program.x board.o main.o BloomFilter.o Trie.o diccTrie.o diccDHashing.o diccTernary.o Ternary.o diccSortedVector.o
 
 clean:
 	rm -f *.o

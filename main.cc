@@ -9,6 +9,7 @@
 #include "diccTrie.hh"
 #include "diccDHashing.hh"
 #include "diccTernary.hh"
+#include "diccSortedVector.hh"
 using namespace std;
 
 void selectNRandom(set<string>& p, vector<string>& dicc, int n) {
@@ -57,13 +58,14 @@ int main() {
 
     // Es guardaran les paraules trobades, en ordre alfabètic, als fitxers
     // "trie.out", "bloom.out", ..., que es crearan de nou.
-    fstream trieOut, bloomOut, dhashOut, ternaryOut;
+    fstream trieOut, bloomOut, dhashOut, ternaryOut, vectorOut;
     trieOut.open("trie.out", fstream::out | fstream::trunc);
     bloomOut.open("bloom.out", fstream::out | fstream::trunc);
     dhashOut.open("dhash.out", fstream::out | fstream::trunc);
     ternaryOut.open("ternary.out", fstream::out | fstream::trunc);
+    vectorOut.open("vector.out", fstream::out | fstream::trunc);
 
-    if (trieOut.fail() || bloomOut.fail() || dhashOut.fail() || ternaryOut.fail()){
+    if (trieOut.fail() || bloomOut.fail() || dhashOut.fail() || ternaryOut.fail() || vectorOut.fail()){
         cout << "There's been an error opening an output file.\n" << endl;
         return -1;
     }
@@ -113,6 +115,18 @@ int main() {
     finishTime = chrono::steady_clock::now();
     time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
     ternaryOut << "ternary took " << time_span.count()*1000 << " milliseconds\n" << endl;
+
+    printSet(solution, ternaryOut);
+    solution.clear();
+
+    startTime = chrono::steady_clock::now();
+
+    SortedVector sVector(dicc);
+    sVector.findWords(B, solution);
+
+    finishTime = chrono::steady_clock::now();
+    time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
+    ternaryOut << "SortedVector took " << time_span.count()*1000 << " milliseconds\n" << endl;
 
     printSet(solution, ternaryOut);
     solution.clear();
