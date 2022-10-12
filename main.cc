@@ -126,8 +126,8 @@ int main() {
 
     finishTime = chrono::steady_clock::now();
     time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
-    ternaryOut << "SortedVector took " << time_span.count()*1000 << " milliseconds\n" << endl;
+    vectorOut << "SortedVector took " << time_span.count()*1000 << " milliseconds\n" << endl;
 
-    printSet(solution, ternaryOut);
+    printSet(solution, vectorOut);
     solution.clear();
 }
