@@ -6,7 +6,6 @@
 #include <chrono>
 #include "board.hh"
 #include "BloomFilter.hh"
-#include "diccTrie.hh"
 #include "diccDHashing.hh"
 #include "diccTernary.hh"
 #include "diccSortedVector.hh"
@@ -59,14 +58,13 @@ int main() {
 
     // Es guardaran les paraules trobades, en ordre alfabètic, als fitxers
     // "trie.out", "bloom.out", ..., que es crearan de nou.
-    fstream trieOut, bloomOut, dhashOut, ternaryOut, vectorOut;
-    trieOut.open("trie.out", fstream::out | fstream::trunc);
+    fstream bloomOut, dhashOut, ternaryOut, vectorOut;
     bloomOut.open("bloom.out", fstream::out | fstream::trunc);
     dhashOut.open("dhash.out", fstream::out | fstream::trunc);
     ternaryOut.open("ternary.out", fstream::out | fstream::trunc);
     vectorOut.open("vector.out", fstream::out | fstream::trunc);
 
-    if (trieOut.fail() || bloomOut.fail() || dhashOut.fail() || ternaryOut.fail() || vectorOut.fail()){
+    if (bloomOut.fail() || dhashOut.fail() || ternaryOut.fail() || vectorOut.fail()){
         cout << "There's been an error opening an output file.\n" << endl;
         return -1;
     }
@@ -74,23 +72,11 @@ int main() {
     // Per a mesurar el temps de cada algorisme
     chrono::steady_clock::time_point startTime = chrono::steady_clock::now();
 
-    DiccTrie trie(dicc);
-    trie.findWords(B, solution);
-
-    chrono::steady_clock::time_point finishTime = chrono::steady_clock::now();
-    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
-    trieOut << "Trie took " << time_span.count()*1000 << " milliseconds\n" << endl;
-
-    printSet(solution, trieOut);
-    solution.clear();
-
-    startTime = chrono::steady_clock::now();
-
     Bloom bloom(dicc, nPrefixes, 0.00001); // On la última constant és la probabilitat de falsos positius, en tant per u.
     bloom.findWords(B, solution);
     
-    finishTime = chrono::steady_clock::now();
-    time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
+    chrono::steady_clock::time_point finishTime = chrono::steady_clock::now();
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(finishTime - startTime);
     bloomOut << "Bloom Filter took " << time_span.count()*1000 << " milliseconds\n" << endl;
 
     printSet(solution, bloomOut);
