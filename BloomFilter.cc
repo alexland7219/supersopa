@@ -8,11 +8,11 @@ Bloom::Bloom(vector<string>& s, unsigned int nPrefixes, float pFalsePositive){
 
     B.resize(MB); fill(B.begin(), B.end()-1, false);
     P.resize(MP); fill(P.begin(), P.end()-1, false);
-    /*
+    
     h1.open("h1", fstream::out | fstream::trunc); h2.open("h2", fstream::out | fstream::trunc); 
     h3.open("h3", fstream::out | fstream::trunc); h4.open("h4", fstream::out | fstream::trunc); 
     h5.open("h5", fstream::out | fstream::trunc); h6.open("h6", fstream::out | fstream::trunc);
-    */
+    
 
     for (string str : s){
         string pre = "";
@@ -78,27 +78,23 @@ int Bloom::hash3(string s, bool firstModulus){
 }
 
 int Bloom::hash4(string s, bool firstModulus){
-    // PJW hash function https://www.cs.hmc.edu/~geoff/classes/hmc.cs070.200101/homework10/hashfuncs.html
+    // SDBM hash function http://www.cse.yorku.ca/~oz/hash.html
     uint32_t M;
 
     if (firstModulus) M = MB;
     else M = MP;
     
-    char * p = &s[0];
-    unsigned long h = 0, g;
+    unsigned int hash = 0;
+    unsigned int i    = 0;
 
-    while(*p){
+    char * str = &s[0];
 
-        h = (h << 4) + *p++;
-        g = h & 0xF000000;
-
-        if (g != 0){
-            h = h ^ (g >> 24);
-            h = h ^ g;
-        }
+    for (i = 0; i < s.size(); ++str, ++i)
+    {
+        hash = (*str) + (hash << 6) + (hash << 16) - hash;
     }
 
-    return (h % M);
+    return (hash % M);
 }
 
 int Bloom::hash5(string s, bool firstModulus){
@@ -175,14 +171,14 @@ int Bloom::hash6(string s, bool firstModulus){
 
 void Bloom::addWord(string s){
     // For every hash functionw we evaluate and set the corresponding bit to 1
-    /*
+    
     h1 << hash1(s, true) << endl;
     h2 << hash2(s, true) << endl;
     h3 << hash3(s, true) << endl;
     h4 << hash4(s, true) << endl;
     h5 << hash5(s, true) << endl;
     h6 << hash6(s, true) << endl;
-    */
+    
 
     B[hash1(s, true)] = true;
     B[hash2(s, true)] = true;
