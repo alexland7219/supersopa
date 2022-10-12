@@ -19,7 +19,7 @@ class Bloom {
     uint32_t MP;
     vector<bool> B; // words
     vector<bool> P; // prefixes of words
-    fstream h1, h2, h3, h4, h5, h6;
+    //fstream h1, h2, h3, h4, h5, h6;
 
     int hash1(string s, bool firstModulus);
     int hash2(string s, bool firstModulus);
