@@ -8,7 +8,7 @@ Bloom::Bloom(vector<string>& s, unsigned int nPrefixes, float pFalsePositive){
 
     B.resize(MB); fill(B.begin(), B.end()-1, false);
     P.resize(MP); fill(P.begin(), P.end()-1, false);
-    
+
     /*
     h1.open("h1", fstream::out | fstream::trunc); h2.open("h2", fstream::out | fstream::trunc); 
     h3.open("h3", fstream::out | fstream::trunc); h4.open("h4", fstream::out | fstream::trunc); 
@@ -180,7 +180,6 @@ void Bloom::addWord(string s){
     h5 << hash5(s, true) << endl;
     h6 << hash6(s, true) << endl;
     */
-
     B[hash1(s, true)] = true;
     B[hash2(s, true)] = true;
     B[hash3(s, true)] = true;
