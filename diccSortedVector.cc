@@ -28,7 +28,12 @@ void SortedVector::fillIndex(int i, int j, char c) {
         else {
             string s;
             s = c;
-            if (s == SortedDicc[k]) Index[c - 'A'] = k;
+            if (s == SortedDicc[k]) {
+                Index[c - 'A'] = k;
+                if (Index[SortedDicc[k-1][0] - 'A'] == -1) {
+                    fillIndex(i, k-1, c);
+                }
+            }
             else fillIndex(i, k, c);
         }
     }
