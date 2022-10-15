@@ -27,23 +27,101 @@ void Ternary::setWord(string s, int i) {
     }
 }
 
-void Ternary::findWords(Board& sopa, int i, int j, set<pair<int, int>> visited, string s, set<string>& found) {
-    if (i < 0 or j < 0 or i >= sopa.getSize() or j >= sopa.getSize() or visited.find(make_pair(i, j)) != visited.end()) return;
+void Ternary::findWords(Board& sopa, int i, int j, string& s, set<pair<int, int>>& visited, set<string>& found) {
     
-    if (sopa.getCasella(i, j) > key and right != NULL) right->findWords(sopa, i, j, visited, s, found);
-    else if (sopa.getCasella(i, j) < key and left != NULL) left->findWords(sopa, i, j, visited, s, found);
+    if (sopa.getCasella(i, j) > key and right != NULL) right->findWords(sopa, i, j, s, visited, found);
+    else if (sopa.getCasella(i, j) < key and left != NULL) left->findWords(sopa, i, j, s, visited, found);
     else if (sopa.getCasella(i, j) == key) {
-        s.push_back(sopa.getCasella(i, j));
-        visited.insert(make_pair(i, j));
+        if (is_word) cout << s << endl;
+        //s.push_back(sopa.getCasella(i, j));
         if (is_word) found.insert(s);
         if (center == NULL) return;
-        center->findWords(sopa, i + 1, j, visited, s, found);
-        center->findWords(sopa, i, j + 1, visited, s, found);
-        center->findWords(sopa, i - 1, j, visited, s, found);
-        center->findWords(sopa, i, j - 1, visited, s, found);
-        center->findWords(sopa, i + 1, j + 1, visited, s, found);
-        center->findWords(sopa, i + 1, j - 1, visited, s, found);
-        center->findWords(sopa, i - 1, j + 1, visited, s, found);
-        center->findWords(sopa, i - 1, j - 1, visited, s, found);
+    if (i > 0 && j > 0){
+        s.push_back(sopa.getCasella(i-1, j-1));
+        
+        if (visited.insert(make_pair(i-1, j-1)).second){
+            center->findWords(sopa, i-1, j-1, s, visited, found);
+            visited.erase(make_pair(i-1, j-1));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (i > 0 && j < sopa.getSize() - 1){
+        s.push_back(sopa.getCasella(i-1, j+1));
+        
+        if (visited.insert(make_pair(i-1, j+1)).second){
+            center->findWords(sopa, i-1, j+1, s, visited, found);
+            visited.erase(make_pair(i-1, j+1));
+        }
+
+        s.pop_back();
+    }
+
+    if (i < sopa.getSize() - 1 && j > 0){
+        s.push_back(sopa.getCasella(i+1, j-1));
+        
+        if (visited.insert(make_pair(i+1, j-1)).second){
+            center->findWords(sopa, i+1, j-1, s, visited, found);
+            visited.erase(make_pair(i+1, j-1));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (i < sopa.getSize() - 1 && j < sopa.getSize() - 1){
+        s.push_back(sopa.getCasella(i+1, j+1));
+        
+        if (visited.insert(make_pair(i+1, j+1)).second){
+            center->findWords(sopa, i+1, j+1, s, visited, found);
+            visited.erase(make_pair(i+1, j+1));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (i > 0){
+        s.push_back(sopa.getCasella(i-1, j));
+        
+        if (visited.insert(make_pair(i-1, j)).second){
+            center->findWords(sopa, i-1, j, s, visited, found);
+            visited.erase(make_pair(i-1, j));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (i < sopa.getSize() - 1){
+        s.push_back(sopa.getCasella(i+1, j));
+        
+        if (visited.insert(make_pair(i+1, j)).second){
+            center->findWords(sopa, i+1, j, s, visited, found);
+            visited.erase(make_pair(i+1, j));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (j > 0){
+        s.push_back(sopa.getCasella(i, j-1));
+        
+        if (visited.insert(make_pair(i, j-1)).second){
+            center->findWords(sopa, i, j-1, s, visited, found);
+            visited.erase(make_pair(i, j-1));
+        }
+
+        s.pop_back(); 
+    }
+
+    if (j < sopa.getSize() - 1){
+        s.push_back(sopa.getCasella(i, j+1));
+        
+        if (visited.insert(make_pair(i, j+1)).second){
+            center->findWords(sopa, i, j+1, s, visited, found);
+            visited.erase(make_pair(i, j+1));
+        }
+
+        s.pop_back(); 
+    }
     }
 }
