@@ -32,8 +32,6 @@ void Ternary::findWords(Board& sopa, int i, int j, string& s, set<pair<int, int>
     if (sopa.getCasella(i, j) > key and right != NULL) right->findWords(sopa, i, j, s, visited, found);
     else if (sopa.getCasella(i, j) < key and left != NULL) left->findWords(sopa, i, j, s, visited, found);
     else if (sopa.getCasella(i, j) == key) {
-        if (is_word) cout << s << endl;
-        //s.push_back(sopa.getCasella(i, j));
         if (is_word) found.insert(s);
         if (center == NULL) return;
     if (i > 0 && j > 0){
