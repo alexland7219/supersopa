@@ -20,7 +20,7 @@ class Ternary {
 
     Ternary(char c);
     void setWord(string s, int i);
-    void findWords(Board& sopa, int i, int j, string& s, set<pair<int, int>>& visited, set<string>& found);
+    void findWords(Board& sopa, int i, int j, string& s, vector<vector<bool>>& visited, set<string>& found);
 };
 
 #endif

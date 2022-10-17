@@ -8,14 +8,16 @@ DiccTernary::DiccTernary(const vector<string>& dict) {
 }
 
 void DiccTernary::findWords(Board& sopa, set<string>& found) {
+    vector<vector<bool>> visited(sopa.getSize(), vector<bool>(sopa.getSize(), false));
     for (int i = 0; i < sopa.getSize(); ++i) {
         for (int j = 0; j < sopa.getSize(); ++j) {
-            set<pair<int, int>> visited;
             string s = "";
             s.push_back(sopa.getCasella(i, j));
-            visited.insert(make_pair(i, j));
+            //visited.insert(make_pair(i, j));
+            visited[i][j] = true;
             root->findWords(sopa, i, j, s, visited, found);
-            visited.erase(make_pair(i, j));
+            //visited.erase(make_pair(i, j));
+            visited[i][j] = false;
         }
     }
 }
