@@ -32,7 +32,7 @@ class DHash {
     bool checkPrefix(string& word);
 
     void findWords(Board& board, set<string>& foundWords);
-    void localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats, set<string>& foundWords);
+    void localSearch(Board& board, int i, int j, string& s, vector<vector<bool>>& visitats, set<string>& foundWords);
 
 };
 

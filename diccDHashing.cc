@@ -171,16 +171,17 @@ bool DHash::checkPrefix(string& word){
 }
 
 
-void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int>>& visitats, set<string>& foundWords){
+void DHash::localSearch(Board& board, int i, int j, string& s, vector<vector<bool>>& visitats, set<string>& foundWords){
     // Supposing on (i, j) there's a valid prefix and has been marked as visited
     if (checkWord(s)) foundWords.insert(s);
 
     if (i > 0 && j > 0){
         s.push_back(board.getCasella(i-1, j-1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i-1][j-1]){
+			visitats[i-1][j-1] = true;
             localSearch(board, i-1, j-1, s, visitats, foundWords);
-            visitats.erase(make_pair(i-1, j-1));
+			visitats[i-1][j-1] = false;
         }
 
         s.pop_back(); 
@@ -189,9 +190,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i > 0 && j < board.getSize() - 1){
         s.push_back(board.getCasella(i-1, j+1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i-1][j+1]){
+			visitats[i-1][j+1] = true;
             localSearch(board, i-1, j+1, s, visitats, foundWords);
-             visitats.erase(make_pair(i-1, j+1));
+            visitats[i-1][j+1] = false;
         }
 
         s.pop_back();
@@ -200,9 +202,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1 && j > 0){
         s.push_back(board.getCasella(i+1, j-1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i+1][j-1]){
+			visitats[i+1][j-1] = true;
             localSearch(board, i+1, j-1, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j-1));
+            visitats[i+1][j-1] = false;
         }
 
         s.pop_back(); 
@@ -211,9 +214,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1 && j < board.getSize() - 1){
         s.push_back(board.getCasella(i+1, j+1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i+1][j+1]){
+			visitats[i+1][j+1] = true;
             localSearch(board, i+1, j+1, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j+1));
+            visitats[i+1][j+1] = false;
         }
 
         s.pop_back(); 
@@ -222,9 +226,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i > 0){
         s.push_back(board.getCasella(i-1, j));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i-1, j)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i-1][j]){
+            visitats[i-1][j] = true;
             localSearch(board, i-1, j, s, visitats, foundWords);
-            visitats.erase(make_pair(i-1, j));
+            visitats[i-1][j] = false;
         }
 
         s.pop_back(); 
@@ -233,9 +238,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (i < board.getSize() - 1){
         s.push_back(board.getCasella(i+1, j));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i+1, j)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i+1][j]){
+			visitats[i+1][j] = true;
             localSearch(board, i+1, j, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j));
+            visitats[i+1][j] = false;
         }
 
         s.pop_back(); 
@@ -244,9 +250,10 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (j > 0){
         s.push_back(board.getCasella(i, j-1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j-1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i][j-1]){
+			visitats[i][j-1] = true;
             localSearch(board, i, j-1, s, visitats, foundWords);
-            visitats.erase(make_pair(i, j-1));
+            visitats[i][j-1] = false;
         }
 
         s.pop_back(); 
@@ -255,19 +262,16 @@ void DHash::localSearch(Board& board, int i, int j, string& s, set<pair<int, int
     if (j < board.getSize() - 1){
         s.push_back(board.getCasella(i, j+1));
         
-        if ((checkPrefix(s) || checkWord(s)) && visitats.insert(make_pair(i, j+1)).second){
+        if ((checkPrefix(s) || checkWord(s)) && !visitats[i][j+1]){
+			visitats[i][j+1] = true;
             localSearch(board, i, j+1, s, visitats, foundWords);
-            visitats.erase(make_pair(i, j+1));
+            visitats[i][j+1] = false;
         }
 
         s.pop_back(); 
     }
 
 }
-
-
-
-
 
 void DHash::findWords(Board& board, set<string>& foundWords){
     for (int i = 0; i < board.getSize(); ++i){
@@ -277,8 +281,8 @@ void DHash::findWords(Board& board, set<string>& foundWords){
             pre.push_back(board.getCasella(i, j));
             
             if (checkPrefix(pre)){
-                set<pair<int, int>> visitats;
-                visitats.insert(make_pair(i, j));
+				vector<vector<bool>> visitats(board.getSize(), vector<bool>(board.getSize(), false));
+				visitats[i][j] = true;
 
                 localSearch(board, i, j, pre, visitats, foundWords);
             }
