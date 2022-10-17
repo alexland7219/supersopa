@@ -21,7 +21,7 @@ class SortedVector {
         SortedVector(vector<string>& dicc);
 
         int checkPrefix(int i, int j, string& s);
-        void localSearch(Board& board, int i, int j, int& ini, int& fin, string& s, set<pair<int, int>>& visitats, set<string>& foundWords);
+        void localSearch(Board& board, int i, int j, int& ini, int& fin, string& s, vector<vector<bool>>& visitats, set<string>& foundWords);
         void findWords(Board& TomatoSoup, set<string>& foundWords);
 
 };

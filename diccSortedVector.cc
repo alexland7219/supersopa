@@ -61,7 +61,7 @@ int SortedVector::checkPrefix(int i, int j, string& s) {
     else return -1;
 }
 
-void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, string& s, set<pair<int, int>>& visitats, set<string>& foundWords){
+void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, string& s, vector<vector<bool>>& visitats, set<string>& foundWords){
     // Supposing on (i, j) there's a valid prefix and has been marked as visited
     if (s == SortedDicc[ini]) foundWords.insert(s);
 
@@ -70,9 +70,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i-1, j-1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i-1, j-1)).second) {
+        if ((iniPrefix != -1) && !visitats[i-1][j-1]) {
+			visitats[i-1][j-1] = true;
             localSearch(board, i-1, j-1, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i-1, j-1));
+            visitats[i-1][j-1] = false;
         }
 
         s.pop_back();
@@ -82,9 +83,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i-1, j+1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i-1, j+1)).second) {
+        if ((iniPrefix != -1) && !visitats[i-1][j+1]) {
+			visitats[i-1][j+1] = true;
             localSearch(board, i-1, j+1, iniPrefix, fin, s, visitats, foundWords);
-             visitats.erase(make_pair(i-1, j+1));
+            visitats[i-1][j+1] = false;
         }
 
         s.pop_back();
@@ -94,9 +96,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i+1, j-1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i+1, j-1)).second) {
+        if ((iniPrefix != -1) && !visitats[i+1][j-1]) {
+			visitats[i+1][j-1] = true;
             localSearch(board, i+1, j-1, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j-1));
+            visitats[i+1][j-1] = false;
         }
 
         s.pop_back();
@@ -106,9 +109,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i+1, j+1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i+1, j+1)).second) {
+        if ((iniPrefix != -1) && !visitats[i+1][j+1]) {
+			visitats[i+1][j+1] = true;
             localSearch(board, i+1, j+1, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j+1));
+            visitats[i+1][j+1] = false;
         }
 
         s.pop_back();
@@ -118,9 +122,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i-1, j));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i-1, j)).second) {
+        if ((iniPrefix != -1) && !visitats[i-1][j]) {
+			visitats[i-1][j] = true;
             localSearch(board, i-1, j, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i-1, j));
+            visitats[i-1][j] = false;
         }
 
         s.pop_back();
@@ -130,9 +135,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i+1, j));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i+1, j)).second) {
+        if ((iniPrefix != -1) && !visitats[i+1][j]) {
+			visitats[i+1][j] = true;
             localSearch(board, i+1, j, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i+1, j));
+            visitats[i+1][j] = false;
         }
 
         s.pop_back();
@@ -142,9 +148,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i, j-1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i, j-1)).second) {
+        if ((iniPrefix != -1) && !visitats[i][j-1]) {
+			visitats[i][j-1] = true;
             localSearch(board, i, j-1, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i, j-1));
+            visitats[i][j-1] = false;
         }
 
         s.pop_back();
@@ -154,9 +161,10 @@ void SortedVector::localSearch(Board& board, int i, int j, int& ini, int& fin, s
         s.push_back(board.getCasella(i, j+1));
 
         iniPrefix = checkPrefix(ini, fin, s);
-        if ((iniPrefix != -1) && visitats.insert(make_pair(i, j+1)).second) {
+        if ((iniPrefix != -1) && !visitats[i][j+1]) {
+			visitats[i][j+1] = true;
             localSearch(board, i, j+1, iniPrefix, fin, s, visitats, foundWords);
-            visitats.erase(make_pair(i, j+1));
+            visitats[i][j+1] = false;
         }
 
         s.pop_back();
@@ -184,8 +192,8 @@ void SortedVector::findWords(Board& TomatoSoup, set<string>& foundWords) {
                     else ++k;
                 }
 
-                set<pair<int, int>> visitats;
-                visitats.insert(make_pair(i, j));
+                vector<vector<bool>> visitats(TomatoSoup.getSize(), vector<bool>(TomatoSoup.getSize(), false));
+                visitats[i][j] = true;
 
                 localSearch(TomatoSoup, i, j, ini, fin, pre, visitats, foundWords);
             }
