@@ -38,7 +38,7 @@ int main() {
     set<string> solution;
 
     int nParaules = 20; // Nombre de paraules a amagar
-    int N = 30;        // Mida del tauler NxN
+    int N = 50;        // Mida del tauler NxN
     
     // Nombre de prefixos totals de tot el diccionari
     unsigned int nPrefixes = 0;
